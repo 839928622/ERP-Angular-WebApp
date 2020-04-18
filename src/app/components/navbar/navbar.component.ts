@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
