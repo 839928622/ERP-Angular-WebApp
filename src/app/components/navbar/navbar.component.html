@@ -3,25 +3,30 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>菜单</mat-toolbar>
+    <mat-toolbar>菜单
+      
+    </mat-toolbar>
     
     <mat-nav-list>
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngFor="let mainMenu of NavMenulist" [expanded]="mainMenu.isOpened">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            This is the expansion title
+           订单管理
           </mat-panel-title>
-          <mat-panel-description>
-            This is a summary of the content
-          </mat-panel-description>
+          <!-- <mat-panel-description>
+            This is a summary of the content 这个用来解释这个panel的
+          </mat-panel-description> -->
         </mat-expansion-panel-header>
       
-        <p>This is the primary content of the panel.</p>
+        <a mat-list-item  *ngFor="let subMenu of mainMenu.subMenuList" [routerLink]='[subMenu.route]'>{{subMenu.name}}</a>
+     
       
       </mat-expansion-panel>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+   
+     
+
+
+      
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
