@@ -11,7 +11,7 @@
       <mat-expansion-panel *ngFor="let mainMenu of NavMenulist" [expanded]="mainMenu.isOpened">
         <mat-expansion-panel-header>
           <mat-panel-title>
-           订单管理
+           {{mainMenu.name}}
           </mat-panel-title>
           <!-- <mat-panel-description>
             This is a summary of the content 这个用来解释这个panel的
