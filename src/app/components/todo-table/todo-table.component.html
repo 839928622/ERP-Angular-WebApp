@@ -1,12 +1,13 @@
 <div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
-    <!-- Id Column -->
+  <!-- 
+    <table mat-table class="full-width-table" matSort aria-label="Elements">
+     Id Column 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
       <td mat-cell *matCellDef="let row">{{row.id}}</td>
     </ng-container>
 
-    <!-- Name Column -->
+    Name Column 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
       <td mat-cell *matCellDef="let row">{{row.name}}</td>
@@ -21,5 +22,5 @@
       [pageIndex]="0"
       [pageSize]="50"
       [pageSizeOptions]="[25, 50, 100, 250]">
-  </mat-paginator>
+  </mat-paginator> -->
 </div>
