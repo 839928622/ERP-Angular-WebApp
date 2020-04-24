@@ -19,3 +19,7 @@
 .route-outlet-container {
   position: relative;
 }
+
+.toolbar-space {
+  flex:1 1 auto;
+}

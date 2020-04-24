@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { NavMenu } from './../../models/NavMenu';
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -17,7 +18,7 @@ export class NavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {
     this.NavMenulist = [
       { name: '订单管理', isOpened: true, subMenuList : [
         {
