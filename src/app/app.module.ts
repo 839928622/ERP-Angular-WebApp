@@ -23,6 +23,10 @@ import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redir
 import { HomeComponent } from './components/home/home.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +53,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     MatMenuModule,
     MatDividerModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

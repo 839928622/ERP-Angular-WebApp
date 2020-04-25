@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(public authService: AuthService) { }
-
+  options: string[] = ['北京', '天津', '上海'];
   ngOnInit(): void {
   }
 
