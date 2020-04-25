@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TodoTableComponent } from './components/todo-table/todo-table.component';
 import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redirect-silent-renew.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'redirect-silentrenew',
     component: RedirectSilentRenewComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   }
 ];
 

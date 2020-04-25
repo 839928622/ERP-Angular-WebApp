@@ -1,0 +1,7 @@
+.sidenav-container {
+    height: 100%;
+  }
+
+.right-aligned {
+    flex: 1 1 auto;
+}

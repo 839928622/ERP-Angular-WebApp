@@ -20,13 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatMenuModule} from '@angular/material/menu';
 import { SigninOidcComponent } from './oidc/signin-oidc/signin-oidc.component';
 import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redirect-silent-renew.component';
+import { HomeComponent } from './components/home/home.component';
+import { MatDividerModule } from '@angular/material/divider';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TodoTableComponent,
     SigninOidcComponent,
-    RedirectSilentRenewComponent
+    RedirectSilentRenewComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redir
     MatPaginatorModule,
     MatSortModule,
     HttpClientModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
