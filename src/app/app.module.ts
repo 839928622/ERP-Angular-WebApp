@@ -18,11 +18,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import {MatMenuModule} from '@angular/material/menu';
+import { SigninOidcComponent } from './oidc/signin-oidc/signin-oidc.component';
+import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redirect-silent-renew.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    TodoTableComponent
+    TodoTableComponent,
+    SigninOidcComponent,
+    RedirectSilentRenewComponent
   ],
   imports: [
     BrowserModule,
