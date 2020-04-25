@@ -22,6 +22,7 @@ import { SigninOidcComponent } from './oidc/signin-oidc/signin-oidc.component';
 import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redirect-silent-renew.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { MatDividerModule } from '@angular/material/divider';
     HttpClientModule,
     MatMenuModule,
     MatDividerModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
