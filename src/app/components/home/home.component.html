@@ -1,45 +1,77 @@
-<!-- <mat-sidenav-container class="sidenav-container">
-    <mat-toolbar>
-        <span>懂微SASS平台</span> 
-        <span class="right-aligned"></span>
-        <button>登录</button>
+
+    <mat-toolbar class="primary">
+        <span mat-button>懂微SASS平台</span> 
+        <span class="spacer"></span>
+        <button mat-button color="primary" title="登录">
+           <mat-icon>fingerprint</mat-icon>
+        </button>
     </mat-toolbar>
-    
-    <mat-divider></mat-divider>
+
+    <mat-tab-group >
+        <mat-tab label="预览">
+           <mat-card *ngFor="let item of homePreview;let i = index">
+               <img mat-card-image src="{{item.image}}">
+               
+               <mat-card-content>
+                <p>{{item.description}}</p>
+               </mat-card-content>
+
+               <mat-card-actions>
+                   <button mat-button>了解更多</button>
+               </mat-card-actions>
+            </mat-card>
+          
+        </mat-tab>
+        <!-- <mat-tab label="Second"> Content 2 </mat-tab> -->
+       
+      </mat-tab-group>
     
  
-</mat-sidenav-container> -->
 
+<!-- 
 <div fxLayout="column">
-    <!--column: Stacking your children veritically-->
+    //column: Stacking your children veritically
 
-    <div fxLayout="row">
-        <div fxFlex="0 0 10" class="branding">
-            <h3>Donvv</h3>
-        </div>
-          <!--10是百分比 上面10 下面70 加起来就是80%-->
-        <div fxFlex="0 0 70" class="branding">
-            <mat-form-field
-            class="material-input-full-width"
-            >
-                <!--使用mat-form-field需要注册MatFormFieldModule,使用matAutoComplete需要注册MatAutocompleteModule-->
-                <input type="text" matInput placeholder="请选择地区" aria-label="Number" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let city of options">{{city}}</mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-
-            <mat-form-field class="material-input-full-width">
-              <input matInput placeholder="检索" value="">
-            </mat-form-field>
-        </div>
-    <!--关于end和center的文档：https://tburleson-layouts-demos.firebaseapp.com/#/docs-->
-        <div fxFlex="row"
-             fxLayoutAlign="end center"
-             fxFlex="0 0 70">
-            <button mat-icon-button aria-label="带有搜索图标的按钮"><mat-icon class="toolbar-icon">search</mat-icon></button>
-            <button></button>
+    
+        <div fxLayout="row" fxFlex="auto"  fxLayoutAlign="space-between center" fxLayoutGap="2%">
+            <div fxFlex="0 0 10" class="branding">
+                <h3>Donvv</h3>
             </div>
-    </div>
-    <div fxLayout="row">2</div>
-</div>
+            // 10是百分比 上面10 下面70 加起来就是80%
+            <div fxFlex="0 0 70" class="branding" fxLayoutAlign="space-around center" fxLayoutGap="2%" fxHide.xs>
+                <mat-form-field
+                class="material-input-full-width"
+                >
+                    // 使用mat-form-field需要注册MatFormFieldModule,使用matAutoComplete需要注册MatAutocompleteModule
+                    <input type="text" matInput placeholder="请选择地区" aria-label="Number" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let city of options">{{city}}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field class="material-input-full-width">
+                <input matInput placeholder="检索" value="">
+                </mat-form-field>
+            </div>
+
+        
+            // 关于end和center的文档：https://tburleson-layouts-demos.firebaseapp.com/#/docs
+        <div    fxLayout="row"
+                fxLayoutAlign="end center"
+                fxFlex="0 0 20">
+            <button mat-icon-button aria-label="带有搜索图标的按钮">
+                <mat-icon class="toolbar-icon">search</mat-icon>
+            </button>
+
+            <button mat-icon-button aria-label="通知图标" matBadge="8">
+                <mat-icon class="toolbar-icon">notifications</mat-icon>
+            </button>
+
+            <button  mat-button color="primary">
+                登录
+            </button>
+        </div>
+        </div>
+   
+
+</div> -->

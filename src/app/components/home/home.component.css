@@ -1,7 +1,5 @@
-.sidenav-container {
-    height: 100%;
-  }
-
-.right-aligned {
-    flex: 1 1 auto;
+.spacer {
+ -webkit-box-flex: 1;
+ -ms-flex: 1 1 auto;
+ flex: 1 1 auto;
 }

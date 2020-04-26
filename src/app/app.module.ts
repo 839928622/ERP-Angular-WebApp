@@ -27,6 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +62,9 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatBadgeModule,
+    MatTabsModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
