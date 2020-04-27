@@ -20,11 +20,11 @@ export class HomeComponent implements OnInit {
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
     },
     {
-      image: 'assets/Home/space2.jpg',
+      image: 'assets/Home/space1.jpg',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
     },
     {
-      image: 'assets/Home/space3.jpg',
+      image: 'assets/Home/space1.jpg',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
     }
   ];

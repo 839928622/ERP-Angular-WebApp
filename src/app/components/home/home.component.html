@@ -7,24 +7,35 @@
         </button>
     </mat-toolbar>
 
-    <mat-tab-group >
-        <mat-tab label="预览">
-           <mat-card *ngFor="let item of homePreview;let i = index">
-               <img mat-card-image src="{{item.image}}">
-               
-               <mat-card-content>
-                <p>{{item.description}}</p>
-               </mat-card-content>
-
-               <mat-card-actions>
-                   <button mat-button>了解更多</button>
-               </mat-card-actions>
-            </mat-card>
+    <div fxLayout="row wrap">
+        <div *ngFor="let item of homePreview;let i = index" 
+        fxFlex="0 0 100%" 
+        [ngStyle.gt-sm] ="{'margin.px':6}" 
+        [ngStyle] = "{'margin.px': 6 ,'margin-bottom.px': 20}"
+        fxFlex.gt-sm="0 0 calc(33% - 12px)">
           
-        </mat-tab>
-        <!-- <mat-tab label="Second"> Content 2 </mat-tab> -->
+             <!--ngStyle.gt-sm表示给gt-sm状态下的元素作用样式，这里是给margin，单位5px-->
+                <mat-card >
+                    <mat-card-header>
+                        {{item.description | slice:0:100}}  <!--头部或者标题 -->
+                    </mat-card-header>
+                    <img mat-card-image src="{{item.image}}">
+                    
+                    <mat-card-content>
+                        <p>{{item.description}}</p>
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button>了解更多</button>
+                    </mat-card-actions>
+                  
+                </mat-card>   
+                
+             
+                <!-- <mat-tab label="Second"> Content 2 </mat-tab> -->
        
-      </mat-tab-group>
+        </div>
+    </div>
     
  
 
