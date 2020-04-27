@@ -2,11 +2,12 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { UserManager, User } from 'oidc-client';
 import { from, ReplaySubject } from 'rxjs';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() {
+  constructor(private router: Router) {
     this.userManager.clearStaleState(); //  用户上次访问idp获取到的凭证（存储在浏览器本地），有可能过期了，清除一下
     this.userManager.getUser().then(user => {
       if (user){
@@ -71,6 +72,7 @@ export class AuthService {
 
   triggerSignOut() {
     this.userManager.signoutRedirect().then(response => {
+      this.router.navigate(['/home']);
       console.log('用户登出：' + response);
     });
   }

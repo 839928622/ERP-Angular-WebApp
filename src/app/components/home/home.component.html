@@ -2,7 +2,7 @@
     <mat-toolbar class="primary">
         <span mat-button>懂微SASS平台</span> 
         <span class="spacer"></span>
-        <button mat-button color="primary" title="登录">
+        <button mat-button color="primary" title="登录" (click) = "authService.triggerSignIn()">
            <mat-icon>fingerprint</mat-icon>
         </button>
     </mat-toolbar>
