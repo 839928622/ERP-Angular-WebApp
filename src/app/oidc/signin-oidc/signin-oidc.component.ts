@@ -12,16 +12,15 @@ export class SigninOidcComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.handerCallBackAferSignIn();
     this.authService.userLoaded$.subscribe(userLoaded => {
       if (userLoaded)
       {
-         this.router.navigate(['./nav']);
+        this.router.navigate(['./nav']);
       }else {
         console.log('登录失败'); // 这里可以注入第三方消息组件库来更友好的提示用户登录失败
       }
     });
-
-    this.authService.handerCallBackAferSignIn();
   }
 
 }

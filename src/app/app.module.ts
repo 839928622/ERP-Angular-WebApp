@@ -31,6 +31,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './Guards/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,8 @@ import { AuthService } from './services/auth.service';
     MatCardModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
