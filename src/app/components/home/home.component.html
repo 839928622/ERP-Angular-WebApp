@@ -2,9 +2,12 @@
     <mat-toolbar class="primary">
         <span mat-button>懂微SASS平台</span> 
         <span class="spacer"></span>
-        <button mat-button color="primary" title="登录" (click) = "authService.triggerSignIn()">
+        <button *ngIf="!this.authService.userAvailable" mat-button color="primary" title="登录" (click) = "authService.triggerSignIn()">
            <mat-icon>fingerprint</mat-icon>
         </button>
+        <button *ngIf="this.authService.userAvailable" mat-button color="primary" title="登出" (click) = "authService.triggerSignOut()">
+            <mat-icon>exit_to_app</mat-icon>
+         </button>
     </mat-toolbar>
 
     <div fxLayout="row wrap">
