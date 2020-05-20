@@ -16,8 +16,9 @@ export const environment = {
     redirect_uri: angularErpBase + '/signin-oidc', // 登陆成功后跳转该Url
     post_logout_redirect_uri: angularErpBase + '/home', // 登出后 跳转到该url
     silent_redict_uri: angularErpBase + '/redirect-silentrenew', // 静默刷新access_token后跳转到该uri
-    scope: 'ERP-API profile phone role email openid', // 可以访问的资源
+    scope: 'ERP-API profile phone role email openid branchId', // 可以访问的资源
     response_type: 'id_token token', // id_token表示有用户信息的token token表示access_token
+
     automaticSilentRenew: true, // 是否自动刷新access_token
   }
 };
