@@ -5,16 +5,30 @@ import { Routes, RouterModule } from '@angular/router';
 import { TodoTableComponent } from './components/todo-table/todo-table.component';
 import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redirect-silent-renew.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './Guards/auth.guard';
+
 
 
 const routes: Routes = [
   {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
     path: 'Todo-List',
+    canActivate: [AuthGuard],
     component: TodoTableComponent
   },
   {
     path: 'nav',
-    component: NavbarComponent
+    canActivate: [AuthGuard],
+    component: NavbarComponent,
+    data: { CanAccessRoles: { baseRole: ['Erp'], secondaryRoles: [] }}
   },
   {
     path: 'signin-oidc',
@@ -25,13 +39,9 @@ const routes: Routes = [
     component: RedirectSilentRenewComponent
   },
   {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
     path: '**',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
