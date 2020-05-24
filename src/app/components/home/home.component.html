@@ -2,10 +2,10 @@
     <mat-toolbar class="primary">
         <span mat-button>SASS平台</span> 
         <span class="spacer"></span>
-        <button *ngIf="!this.authService.userAvailable" mat-button color="primary" title="登录" (click) = "signinRedirect()">
+        <button *ngIf="!isUserAvailable" mat-button color="primary" title="登录" (click) = "signinRedirect()">
            <mat-icon>fingerprint</mat-icon>
         </button>
-        <button *ngIf="this.authService.userAvailable" mat-button color="primary" title="登出" (click) = "signoutRedirect()">
+        <button *ngIf="isUserAvailable" mat-button color="primary" title="登出" (click) = "signoutRedirect()">
             <mat-icon>exit_to_app</mat-icon>
          </button>
     </mat-toolbar>
