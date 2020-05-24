@@ -33,6 +33,19 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './Guards/auth.guard';
 import { AuthorizationHeaderInterceptor } from './interceptor/authorization-header.interceptor';
 import { ErrorInterceptor } from './interceptor/error.interceptor';
+import { NgOidcClientModule } from 'ng-oidc-client';
+import { WebStorageStateStore, Log } from 'oidc-client';
+import { environment } from './../environments/environment';
+import { StoreModule, ActionReducerMap,  } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+export interface State {
+  router: RouterReducerState;
+}
+export const rootStore: ActionReducerMap<State> = {
+  router: routerReducer
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,9 +81,39 @@ import { ErrorInterceptor } from './interceptor/error.interceptor';
     MatBadgeModule,
     MatTabsModule,
     MatCardModule,
+    StoreModule.forRoot(rootStore, {
+      runtimeChecks: {
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      name: 'ng-oidc-client',
+      logOnly: true
+    }),
+    NgOidcClientModule.forRoot({
+           oidc_config: {
+             authority: environment.openIdConnectSettings.authority,
+             client_id: environment.openIdConnectSettings.client_id,
+             redirect_uri: 'http://localhost:4200/callback.html',
+             response_type: environment.openIdConnectSettings.response_type,
+             scope: environment.openIdConnectSettings.scope,
+             post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
+             silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
+             accessTokenExpiringNotificationTime: 10,
+             automaticSilentRenew: true,
+             userStore: new WebStorageStateStore({ store: window.localStorage })
+           },
+           log: {
+             logger: console,
+             level: Log.NONE
+           }
+        }),
   ],
   providers: [
-    AuthService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

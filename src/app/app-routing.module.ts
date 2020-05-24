@@ -37,11 +37,12 @@ const routes: Routes = [
   {
     path: 'redirect-silentrenew',
     component: RedirectSilentRenewComponent
-  },
-  {
-    path: '**',
-    redirectTo: 'home',
-  },
+  }
+  // ,
+  // {
+  //   path: '**',
+  //   redirectTo: 'home',
+  // },
 ];
 
 @NgModule({
