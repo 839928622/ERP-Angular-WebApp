@@ -25,5 +25,5 @@ export interface UserProfile {
     s_hash: string;
     sid: string;
     sub: string;
-    
+
 }
