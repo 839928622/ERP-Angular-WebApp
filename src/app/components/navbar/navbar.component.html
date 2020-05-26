@@ -41,11 +41,11 @@
       </button>
       <span>ERP-Angular-WebApp</span>
       <span class="toolbar-space"></span>
-      <span *ngIf="authService.userAvailable">{{ authService.user.profile.name}}</span> 
+      <span *ngIf=""></span> 
       <!-- matMenuTriggerFor是指向一个叫menu的组件，就是下方的#menu -->
       <button mat-button [matMenuTriggerFor]="menu"> <mat-icon>more_vert</mat-icon></button> 
       <mat-menu #menu="matMenu">
-        <mat-list-item *ngIf="authService.userAvailable" (click)="authService.triggerSignOut()">登出</mat-list-item>
+        <mat-list-item *ngIf="" (click)="signOut()">登出</mat-list-item>
       </mat-menu>
     </mat-toolbar>
     <!-- Add Content Here -->

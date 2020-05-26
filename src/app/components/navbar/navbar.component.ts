@@ -422,4 +422,8 @@ export class NavbarComponent {
     ];
   }
 
+  signOut() {
+
+  }
+
 }

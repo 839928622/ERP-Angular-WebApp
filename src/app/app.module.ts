@@ -114,6 +114,7 @@ export const rootStore: ActionReducerMap<State> = {
         }),
   ],
   providers: [
+    AuthService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

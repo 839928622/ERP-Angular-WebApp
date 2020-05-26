@@ -11,7 +11,7 @@ export class RedirectSilentRenewComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.handerSilentRenewCallBack(); // 这个组件的作用就是在页面上找一个看不见的frame然后刷新网页从而刷新accesstoken
+    // this.authService.handerSilentRenewCallBack(); // 这个组件的作用就是在页面上找一个看不见的frame然后刷新网页从而刷新accesstoken
   }
 
 }
