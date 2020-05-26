@@ -5,12 +5,14 @@ import { from, ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
 import * as Oidc from 'oidc-client';
 import { UserIdentity } from '../models/userIdentity';
+import { AlertifyService } from './alertify.service';
+import { ThrowStmt } from '@angular/compiler';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: UserIdentity;
-  constructor(private router: Router,  ) {
+  constructor(private router: Router, private alertifyService: AlertifyService ) {
     // Oidc.Log.logger = console;
     // this.userManager.clearStaleState(); //  用户上次访问idp获取到的凭证（存储在浏览器本地），有可能过期了，清除一下
     // this.userManager.getUser().then(user => {
@@ -40,9 +42,9 @@ export class AuthService {
     //  this.userLoaded$.next(false);
     //  console.log('用户刚刚登出');
     // });
-    const timestamp = new Date().getTime();
     const userIdentity = localStorage.getItem('oidc.user:' + environment.openIdConnectSettings.authority +
     ':' + environment.openIdConnectSettings.client_id);
+    this.user = JSON.parse(userIdentity);
    }
   // private userManager = new UserManager(environment.openIdConnectSettings);
   // public  currentUser: User;
@@ -84,4 +86,11 @@ export class AuthService {
   //     this.router.navigate(['home']);
   //   });
   // }
+
+  isExpired(): boolean {
+    if (this.user){
+      return this.user.expires_at < new Date().getTime();
+    }
+    return true;
+  }
 }

@@ -40,6 +40,7 @@ import { StoreModule, ActionReducerMap,  } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AlertifyService } from './services/alertify.service';
 export interface State {
   router: RouterReducerState;
 }
@@ -115,6 +116,7 @@ export const rootStore: ActionReducerMap<State> = {
   ],
   providers: [
     AuthService,
+    AlertifyService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
