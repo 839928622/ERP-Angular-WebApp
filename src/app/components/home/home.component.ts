@@ -15,9 +15,14 @@ export class HomeComponent implements OnInit {
 isUserAvailable = false;
 
   constructor(public authService: AuthService, private http: HttpClient, private oidcFacade: OidcFacade) {
+    if (this.oidcFacade.waitForAuthenticationLoaded())
+    {
+      this.oidcFacade.getOidcUser();
+    }
     this.oidcFacade.identity$.pipe(
       take(1),
       switchMap( user => {
+        console.log(user);
         if (user && !user.expired && user.access_token) {
         this.isUserAvailable = true;
         return of(true);

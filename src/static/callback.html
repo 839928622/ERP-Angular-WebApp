@@ -21,6 +21,9 @@
 
     if ((Oidc && Oidc.Log && Oidc.Log.logger)) {
       Oidc.Log.logger = console;
+      
+      console.log(typeof(Oidc))
+
     }
     var isPopupCallback = JSON.parse(window.localStorage.getItem('ngoidc:isPopupCallback'));
 
