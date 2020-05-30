@@ -29,7 +29,7 @@
       new Oidc.UserManager(config).signoutPopupCallback();
     } else {
       new Oidc.UserManager(config).signoutRedirectCallback().then(test => {
-        window.location.href = '/';
+        window.location.href = '/home';
       });
     }
   </script>

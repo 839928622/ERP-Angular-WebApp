@@ -7,12 +7,13 @@ import * as Oidc from 'oidc-client';
 import { UserIdentity } from '../models/userIdentity';
 import { AlertifyService } from './alertify.service';
 import { ThrowStmt } from '@angular/compiler';
+import { OidcFacade } from 'ng-oidc-client';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: UserIdentity;
-  constructor(private router: Router, private alertifyService: AlertifyService ) {
+  constructor(private router: Router, private alertifyService: AlertifyService, private oidcFacade: OidcFacade ) {
     // Oidc.Log.logger = console;
     // this.userManager.clearStaleState(); //  用户上次访问idp获取到的凭证（存储在浏览器本地），有可能过期了，清除一下
     // this.userManager.getUser().then(user => {
@@ -87,10 +88,18 @@ export class AuthService {
   //   });
   // }
 
-  isExpired(): boolean {
+  get isExpired(): boolean {
     if (this.user){
-      return this.user.expires_at < new Date().getTime();
+      return this.user.expires_at > new Date().getTime();
     }
     return true;
+  }
+
+  triggerSignin() {
+    this.oidcFacade.signinRedirect();
+  }
+
+  triggerSignout() {
+    this.oidcFacade.signoutRedirect();
   }
 }
