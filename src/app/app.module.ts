@@ -41,12 +41,29 @@ import { EffectsModule } from '@ngrx/effects';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AlertifyService } from './services/alertify.service';
+import { AuthModule, LogLevel, OidcConfigService } from 'angular-auth-oidc-client';
+import { APP_INITIALIZER } from '@angular/core';
 export interface State {
   router: RouterReducerState;
 }
-export const rootStore: ActionReducerMap<State> = {
-  router: routerReducer
-};
+// export const rootStore: ActionReducerMap<State> = {
+//   router: routerReducer
+// };
+export function configureAuth(oidcConfigService: OidcConfigService) {
+  return () =>
+      oidcConfigService.withConfig({
+          stsServer: environment.openIdConnectSettings.authority,
+          redirectUrl: environment.openIdConnectSettings.redirect_uri,
+          postLogoutRedirectUri: environment.openIdConnectSettings.post_logout_redirect_uri,
+          clientId: environment.openIdConnectSettings.client_id,
+          scope: environment.openIdConnectSettings.scope,
+          responseType: environment.openIdConnectSettings.response_type,
+          silentRenew: environment.openIdConnectSettings.automaticSilentRenew,
+          silentRenewUrl: environment.openIdConnectSettings.silent_redirect_uri,
+          logLevel: LogLevel.Error,
+          autoUserinfo: environment.openIdConnectSettings.canAccessUserInfo
+      });
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,37 +99,38 @@ export const rootStore: ActionReducerMap<State> = {
     MatBadgeModule,
     MatTabsModule,
     MatCardModule,
-    StoreModule.forRoot(rootStore, {
-      runtimeChecks: {
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
-      name: 'ng-oidc-client',
-      logOnly: true
-    }),
-    NgOidcClientModule.forRoot({
-           oidc_config: {
-             authority: environment.openIdConnectSettings.authority,
-             client_id: environment.openIdConnectSettings.client_id,
-             redirect_uri: 'http://localhost:4200/callback.html',
-             response_type: environment.openIdConnectSettings.response_type,
-             scope: environment.openIdConnectSettings.scope,
-             post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
-             silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
-             accessTokenExpiringNotificationTime: 10,
-             automaticSilentRenew: true,
-             userStore: new WebStorageStateStore({ store: window.localStorage })
-           },
-           log: {
-             logger: console,
-             level: Log.NONE
-           }
-        }),
+    // StoreModule.forRoot(rootStore, {
+    //   runtimeChecks: {
+    //     strictStateSerializability: true,
+    //     strictActionSerializability: true,
+    //     strictStateImmutability: true,
+    //     strictActionImmutability: true
+    //   }
+    // }),
+    // EffectsModule.forRoot([]),
+    // StoreDevtoolsModule.instrument({
+    //   name: 'ng-oidc-client',
+    //   logOnly: true
+    // }),
+    // NgOidcClientModule.forRoot({
+    //        oidc_config: {
+    //          authority: environment.openIdConnectSettings.authority,
+    //          client_id: environment.openIdConnectSettings.client_id,
+    //          redirect_uri: 'http://localhost:4200/callback.html',
+    //          response_type: environment.openIdConnectSettings.response_type,
+    //          scope: environment.openIdConnectSettings.scope,
+    //          post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
+    //          silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
+    //          accessTokenExpiringNotificationTime: 10,
+    //          automaticSilentRenew: true,
+    //          userStore: new WebStorageStateStore({ store: window.localStorage })
+    //        },
+    //        log: {
+    //          logger: console,
+    //          level: Log.NONE
+    //        }
+    //     }),
+    AuthModule.forRoot(),
   ],
   providers: [
     AuthService,
@@ -127,7 +145,14 @@ export const rootStore: ActionReducerMap<State> = {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
-    }
+    },
+    OidcConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: configureAuth,
+            deps: [OidcConfigService],
+            multi: true,
+        },
   ],
   bootstrap: [AppComponent]
 })

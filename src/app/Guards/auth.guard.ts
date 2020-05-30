@@ -5,13 +5,27 @@ import { AuthService } from '../services/auth.service';
 import { CanAccessRoles } from '../models/canAccessRoles';
 import { OidcFacade } from 'ng-oidc-client';
 import { take, switchMap } from 'rxjs/operators';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { UserProfile } from '../models/userIdentity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor( private oidcFacade: OidcFacade, private router: Router, private authService: AuthService) {
-    this.oidcFacade.getOidcUser();
+  isAuth = false;
+  user: UserProfile;
+  constructor( private router: Router, private authService: AuthService, private oidcSecurityServices: OidcSecurityService) {
+    this.oidcSecurityServices.checkAuth().subscribe((auth) => {
+      console.log('is authenticated', auth);
+      console.log('access_token', this.oidcSecurityServices.getToken());
+      this.isAuth = auth;
+      if (auth) {
+        this.oidcSecurityServices.userData$.subscribe(user => {
+          this.user = user;
+        });
+      }
+    }
+    );
   }
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -73,27 +87,27 @@ export class AuthGuard implements CanActivate {
     // // }
 
     // return of(false);
+    if (this.isAuth && this.user) {
 
-    if (this.authService.user && !this.authService.isExpired) {
-          const canAccessRoles: CanAccessRoles = next.data.CanAccessRoles; // 这里会去路由，获取路由里的定义的角色信息 且有类型系统的支持 如果有错误，及时抛出
-          if (canAccessRoles.baseRole.length === 0 && canAccessRoles.secondaryRoles.length === 0) {
-            return of(true);
+            const canAccessRoles: CanAccessRoles = next.data.CanAccessRoles; // 这里会去路由，获取路由里的定义的角色信息 且有类型系统的支持 如果有错误，及时抛出
+            if (canAccessRoles.baseRole.length === 0 && canAccessRoles.secondaryRoles.length === 0) {
+            return true;
           }
           else if (canAccessRoles.baseRole.length > 0 && canAccessRoles.secondaryRoles.length === 0) {
-            if (!canAccessRoles.baseRole.every(role => this.authService.user.profile.role.includes(role))) { // user.profile.role
-              return of(false);
+            if (!canAccessRoles.baseRole.every(role => this.user.role.includes(role))) { // user.profile.role
+              return false;
             }
-            return of(true);
+            return true;
           } else if (canAccessRoles.baseRole.length > 0 && canAccessRoles.secondaryRoles.length > 0) {
-            if (!canAccessRoles.baseRole.every(role => this.authService.user.profile.role.includes(role))) {
-              return of(false); // doesn't meet first requirement
+            if (!canAccessRoles.baseRole.every(role => this.user.role.includes(role))) {
+              return false; // doesn't meet first requirement
             }
             canAccessRoles.secondaryRoles.forEach(
               element => {
-                if (this.authService.user.profile.role.includes(element)) {
-                  return of(true);
+                if (this.user.role.includes(element)) {
+                  return true;
                 } else {
-                  return of(false);
+                  return false;
                 }
               }
             );
@@ -101,20 +115,21 @@ export class AuthGuard implements CanActivate {
           else { // canAccessRoles.baseRole.length === 0 && canAccessRoles.secondaryRoles.length > 0
             canAccessRoles.secondaryRoles.forEach(
               element => {
-                if (this.authService.user.profile.role.includes(element)) {
-                  return of(true);
+                if (this.user.role.includes(element)) {
+                  return true;
                 } else {
-                  return of(false);
+                  return false;
                 }
               }
             );
           }
           // }
           // );
-          return of(false);
-    }else {
-      this.router.navigate(['home']);
-      return of(false);
-    }
-  }
-}
+            return false;
+
+
+        }else{
+          this.router.navigate(['home']);
+          return false;
+        }}
+      }

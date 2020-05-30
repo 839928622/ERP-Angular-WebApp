@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { HomePreview } from 'src/app/models/homePreview';
 import { OidcFacade } from 'ng-oidc-client';
 import { of } from 'rxjs';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-home',
@@ -14,20 +15,10 @@ import { of } from 'rxjs';
 export class HomeComponent implements OnInit {
 isUserAvailable = false;
 
-  constructor(public authService: AuthService, private http: HttpClient, private oidcFacade: OidcFacade) {
-    if (this.oidcFacade.waitForAuthenticationLoaded())
-    {
-      this.oidcFacade.getOidcUser();
-    }
-    this.oidcFacade.identity$.pipe(
-      take(1),
-      switchMap( user => {
-        console.log(user);
-        if (user && !user.expired && user.access_token) {
-        this.isUserAvailable = true;
-        return of(true);
-        }
-      }));
+  constructor(public authService: AuthService,
+              private http: HttpClient,
+              public oidcSecurityService: OidcSecurityService) {
+
   }
   homePreview: HomePreview[] = [
     {
@@ -46,13 +37,26 @@ isUserAvailable = false;
   options: string[] = ['北京', '天津', '上海'];
 
   ngOnInit(): void {
+    this.oidcSecurityService.checkAuth().subscribe((auth) => {
+      console.log('is authenticated', auth);
+      console.log('access_token', this.oidcSecurityService.getToken())
+      this.isUserAvailable = auth;
+    }
+    );
   }
 
-  signinRedirect() {
-    this.oidcFacade.signinRedirect();
-  }
+  // signinRedirect() {
+  //   this.oidcFacade.signinRedirect();
+  // }
 
-  signoutRedirect() {
-    this.oidcFacade.signoutRedirect();
-  }
+  // signoutRedirect() {
+  //   this.oidcFacade.signoutRedirect();
+  // }
+  login() {
+    this.oidcSecurityService.authorize();
+}
+
+logout() {
+    this.oidcSecurityService.logoff();
+}
 }

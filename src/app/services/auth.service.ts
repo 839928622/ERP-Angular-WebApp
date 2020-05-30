@@ -13,7 +13,7 @@ import { OidcFacade } from 'ng-oidc-client';
 })
 export class AuthService {
   user: UserIdentity;
-  constructor(private router: Router, private alertifyService: AlertifyService, private oidcFacade: OidcFacade ) {
+  constructor(private router: Router, private alertifyService: AlertifyService ) {
     // Oidc.Log.logger = console;
     // this.userManager.clearStaleState(); //  用户上次访问idp获取到的凭证（存储在浏览器本地），有可能过期了，清除一下
     // this.userManager.getUser().then(user => {
@@ -95,11 +95,11 @@ export class AuthService {
     return true;
   }
 
-  triggerSignin() {
-    this.oidcFacade.signinRedirect();
-  }
+  // triggerSignin() {
+  //   this.oidcFacade.signinRedirect();
+  // }
 
-  triggerSignout() {
-    this.oidcFacade.signoutRedirect();
-  }
+  // triggerSignout() {
+  //   this.oidcFacade.signoutRedirect();
+  // }
 }

@@ -9,25 +9,23 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { OidcFacade } from 'ng-oidc-client';
 import { switchMap } from 'rxjs/operators';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Injectable()
 export class AuthorizationHeaderInterceptor implements HttpInterceptor {
 
-  constructor( private oidcFacade: OidcFacade) {}
+  constructor(  private oidcSecurityServices: OidcSecurityService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.oidcFacade.identity$.pipe(
-      switchMap(user => {
-        if (user && !user.expired && user.access_token) {
+
           request = request.clone({
             setHeaders: {
-              Authorization: `Bearer ${user.access_token}`
+              Authorization: `Bearer ${ this.oidcSecurityServices.getToken()}`
             }
           });
-        }
-        return next.handle(request);
-      })
-    );
+
+          return next.handle(request);
+
     // if (this.authService.userAvailable) {
     //   request = request.clone({
     //     setHeaders: {
