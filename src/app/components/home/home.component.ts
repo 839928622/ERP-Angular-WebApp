@@ -38,9 +38,7 @@ isUserAvailable = false;
 
   ngOnInit(): void {
     this.oidcSecurityService.checkAuth().subscribe((auth) => {
-      console.log('is authenticated', auth);
-      console.log('access_token', this.oidcSecurityService.getToken())
-      this.isUserAvailable = auth;
+      this.isUserAvailable = this.authService.IsAuthenticated;
     }
     );
   }
@@ -53,10 +51,10 @@ isUserAvailable = false;
   //   this.oidcFacade.signoutRedirect();
   // }
   login() {
-    this.oidcSecurityService.authorize();
+    this.authService.triggerSignin();
 }
 
 logout() {
-    this.oidcSecurityService.logoff();
+    this.authService.triggerSignout();
 }
 }

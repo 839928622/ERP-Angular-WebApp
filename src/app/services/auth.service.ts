@@ -1,19 +1,22 @@
+import { UserProfile } from './../models/userIdentity';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { UserManager, User } from 'oidc-client';
-import { from, ReplaySubject } from 'rxjs';
+import { from, ReplaySubject, BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import * as Oidc from 'oidc-client';
 import { UserIdentity } from '../models/userIdentity';
 import { AlertifyService } from './alertify.service';
 import { ThrowStmt } from '@angular/compiler';
 import { OidcFacade } from 'ng-oidc-client';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: UserIdentity;
-  constructor(private router: Router, private alertifyService: AlertifyService ) {
+  currentUser = new Subject<UserProfile>();
+  IsAuthenticated: boolean;
+  constructor(private router: Router, private alertifyService: AlertifyService, private oidcSecurityServices: OidcSecurityService) {
     // Oidc.Log.logger = console;
     // this.userManager.clearStaleState(); //  用户上次访问idp获取到的凭证（存储在浏览器本地），有可能过期了，清除一下
     // this.userManager.getUser().then(user => {
@@ -43,9 +46,17 @@ export class AuthService {
     //  this.userLoaded$.next(false);
     //  console.log('用户刚刚登出');
     // });
-    const userIdentity = localStorage.getItem('oidc.user:' + environment.openIdConnectSettings.authority +
-    ':' + environment.openIdConnectSettings.client_id);
-    this.user = JSON.parse(userIdentity);
+    this.oidcSecurityServices.checkAuth().subscribe((auth) => {
+      console.log('is authenticated', auth);
+      console.log('access_token', this.oidcSecurityServices.getToken());
+      this.IsAuthenticated = auth;
+      if (auth) {
+        this.oidcSecurityServices.userData$.subscribe( user => {
+          this.currentUser.next(user); // 广播
+        });
+      }
+    }
+    );
    }
   // private userManager = new UserManager(environment.openIdConnectSettings);
   // public  currentUser: User;
@@ -88,18 +99,12 @@ export class AuthService {
   //   });
   // }
 
-  get isExpired(): boolean {
-    if (this.user){
-      return this.user.expires_at > new Date().getTime();
-    }
-    return true;
+
+  triggerSignin() {
+    this.oidcSecurityServices.authorize();
   }
 
-  // triggerSignin() {
-  //   this.oidcFacade.signinRedirect();
-  // }
-
-  // triggerSignout() {
-  //   this.oidcFacade.signoutRedirect();
-  // }
+  triggerSignout() {
+    this.oidcSecurityServices.logoff();
+  }
 }
