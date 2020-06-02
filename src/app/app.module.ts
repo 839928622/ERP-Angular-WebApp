@@ -43,6 +43,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AlertifyService } from './services/alertify.service';
 import { AuthModule, LogLevel, OidcConfigService } from 'angular-auth-oidc-client';
 import { APP_INITIALIZER } from '@angular/core';
+import { TabGroupService } from './services/tabgroup.service';
+import { TabGroupComponent } from './components/tabgroup/tabgroup.component';
+
 export interface State {
   router: RouterReducerState;
 }
@@ -71,7 +74,8 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     TodoTableComponent,
     SigninOidcComponent,
     RedirectSilentRenewComponent,
-    HomeComponent
+    HomeComponent,
+    TabGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -133,6 +137,7 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     AuthModule.forRoot(),
   ],
   providers: [
+    TabGroupService,
     AuthService,
     AlertifyService,
     AuthGuard,
