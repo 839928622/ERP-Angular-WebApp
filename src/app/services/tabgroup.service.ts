@@ -6,17 +6,28 @@ import { Tab } from '../models/tab';
   providedIn: 'root'
 })
 export class TabGroupService {
-  tabList: Tab[];
+  tabList = new Subject<Tab[]>();
+  tabListObservable = this.tabList.asObservable(); // 供其他组件订阅
   constructor() { }
   openNewTab(tab: Tab) {
-    const lastActiveRouteInddex = this.tabList.findIndex(x => x.active === true);
-    this.tabList[lastActiveRouteInddex].active = !this.tabList[lastActiveRouteInddex].active;
-    tab.active = true;
-    this.tabList.push(tab);
+   // first： get priviously tabList/array
+   this.tabListObservable.subscribe( lastTabList => {
+ const lastActiveRouteInddex = lastTabList.findIndex(x => x.active === true);
+ lastTabList[lastActiveRouteInddex].active = !lastTabList[lastActiveRouteInddex].active;
+ tab.active = true;
+ // second: push newly tab to array
+ lastTabList.push(tab);
+ this.tabList.next(lastTabList); // 广播
+  } );
+
   }
 
   closeTab(tabIndex: number)
   {
-    this.tabList.slice(tabIndex, 1);
+    this.tabListObservable.subscribe( lastTabList => {
+      const lastActiveRouteInddex = lastTabList.findIndex(x => x.active === true);
+      lastTabList.slice(tabIndex, 1);
+      this.tabList.next(lastTabList); // 广播
+       } );
   }
 }

@@ -22,7 +22,9 @@ const routes: Routes = [
   {
     path: 'Todo-List',
     canActivate: [AuthGuard],
-    component: TodoTableComponent
+    component: TodoTableComponent,
+    data: {tab: {title: '待办', routePath: 'Todo-List'
+     }}
   },
   {
     path: 'nav',

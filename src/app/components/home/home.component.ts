@@ -1,3 +1,4 @@
+import { AlertifyService } from './../../services/alertify.service';
 import { map, take, switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,6 +18,7 @@ isUserAvailable = false;
 
   constructor(public authService: AuthService,
               private http: HttpClient,
+              private alertifyService: AlertifyService,
               public oidcSecurityService: OidcSecurityService) {
 
   }
@@ -41,6 +43,7 @@ isUserAvailable = false;
       this.isUserAvailable = this.authService.IsAuthenticated;
     }
     );
+    this.alertifyService.alert('欢迎', '热烈欢迎');
   }
 
   // signinRedirect() {

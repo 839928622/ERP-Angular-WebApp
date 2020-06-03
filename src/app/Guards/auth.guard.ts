@@ -1,3 +1,4 @@
+import { Tab } from './../models/tab';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -7,6 +8,8 @@ import { OidcFacade } from 'ng-oidc-client';
 import { take, switchMap } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { UserProfile } from '../models/userIdentity';
+import { TabGroupService } from '../services/tabgroup.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,11 @@ import { UserProfile } from '../models/userIdentity';
 export class AuthGuard implements CanActivate {
   isAuth = false;
   user: UserProfile;
-  constructor( private router: Router, private authService: AuthService, private oidcSecurityServices: OidcSecurityService) {
+  constructor( private router: Router,
+               private authService: AuthService,
+               private oidcSecurityServices: OidcSecurityService,
+               private tabService: TabGroupService,
+               private alertifyService: AlertifyService) {
     this.oidcSecurityServices.checkAuth().subscribe((auth) => {
       console.log('is authenticated', auth);
       console.log('access_token', this.oidcSecurityServices.getToken());
@@ -87,16 +94,26 @@ export class AuthGuard implements CanActivate {
     // // }
 
     // return of(false);
+    this.tabService.tabListObservable.subscribe(tabList => {
+      if (tabList.length >= 20) {
+        this.alertifyService.alert('tips', 'you have opened too many tabs');
+        return false;
+     }
+    });
+
     if (this.isAuth && this.user) {
 
             const canAccessRoles: CanAccessRoles = next.data.CanAccessRoles; // 这里会去路由，获取路由里的定义的角色信息 且有类型系统的支持 如果有错误，及时抛出
+            const tabInfo: Tab = next.data.tab; // get tab basic info from router
             if (canAccessRoles.baseRole.length === 0 && canAccessRoles.secondaryRoles.length === 0) {
+            this.tabService.openNewTab(tabInfo);
             return true;
           }
           else if (canAccessRoles.baseRole.length > 0 && canAccessRoles.secondaryRoles.length === 0) {
             if (!canAccessRoles.baseRole.every(role => this.user.role.includes(role))) { // user.profile.role
               return false;
             }
+            this.tabService.openNewTab(tabInfo);
             return true;
           } else if (canAccessRoles.baseRole.length > 0 && canAccessRoles.secondaryRoles.length > 0) {
             if (!canAccessRoles.baseRole.every(role => this.user.role.includes(role))) {
@@ -105,6 +122,7 @@ export class AuthGuard implements CanActivate {
             canAccessRoles.secondaryRoles.forEach(
               element => {
                 if (this.user.role.includes(element)) {
+                  this.tabService.openNewTab(tabInfo);
                   return true;
                 } else {
                   return false;
@@ -116,6 +134,7 @@ export class AuthGuard implements CanActivate {
             canAccessRoles.secondaryRoles.forEach(
               element => {
                 if (this.user.role.includes(element)) {
+                  this.tabService.openNewTab(tabInfo);
                   return true;
                 } else {
                   return false;

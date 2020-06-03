@@ -1,18 +1,31 @@
 import { TabGroupService } from './../../services/tabgroup.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tab } from 'src/app/models/tab';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tabgroup',
   templateUrl: './tabgroup.component.html',
   styleUrls: ['./tabgroup.component.css']
 })
-export class TabGroupComponent implements OnInit {
+export class TabGroupComponent implements OnInit, OnDestroy {
 tabList: Tab[];
+ tabListSub: Subscription;
   constructor(private tabService: TabGroupService) { }
-
-  ngOnInit(): void {
-    this.tabList = this.tabService.tabList;
+  ngOnDestroy(): void {
+    this.tabListSub.unsubscribe();
   }
 
+  ngOnInit(): void {
+    this.tabListSub = this.tabService.tabListObservable.subscribe( list => this.tabList = list );
+    console.log(this.tabList);
+  }
+
+  openNewTab(tab: Tab) {
+  this.tabService.openNewTab(tab);
+  }
+
+  closeTab(tabId: number) {
+    this.tabService.closeTab(tabId);
+  }
 }
