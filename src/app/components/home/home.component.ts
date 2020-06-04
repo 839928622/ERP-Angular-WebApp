@@ -1,3 +1,4 @@
+import { AlertifyService } from './../../services/alertify.service';
 import { map, take, switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,6 +18,7 @@ isUserAvailable = false;
 
   constructor(public authService: AuthService,
               private http: HttpClient,
+              private alertifyService: AlertifyService,
               public oidcSecurityService: OidcSecurityService) {
                 this.oidcSecurityService.checkAuth().subscribe((auth) => {
                   console.log('is authenticated', auth);
@@ -42,7 +44,6 @@ isUserAvailable = false;
   options: string[] = ['北京', '天津', '上海'];
 
   ngOnInit(): void {
-
   }
 
   // signinRedirect() {
@@ -57,6 +58,6 @@ isUserAvailable = false;
 }
 
 logout() {
-    this.oidcSecurityService.logoff();
+  this.oidcSecurityService.logoff();
 }
 }
