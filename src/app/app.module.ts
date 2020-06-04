@@ -61,7 +61,9 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
           silentRenew: environment.openIdConnectSettings.automaticSilentRenew,
           silentRenewUrl: environment.openIdConnectSettings.silent_redirect_uri,
           logLevel: LogLevel.Error,
-          autoUserinfo: environment.openIdConnectSettings.canAccessUserInfo
+          autoUserinfo: environment.openIdConnectSettings.canAccessUserInfo,
+          storage: localStorage,
+          renewTimeBeforeTokenExpiresInSeconds: 10,
       });
 }
 @NgModule({

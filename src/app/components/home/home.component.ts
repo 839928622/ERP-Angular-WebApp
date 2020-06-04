@@ -18,7 +18,12 @@ isUserAvailable = false;
   constructor(public authService: AuthService,
               private http: HttpClient,
               public oidcSecurityService: OidcSecurityService) {
-
+                this.oidcSecurityService.checkAuth().subscribe((auth) => {
+                  console.log('is authenticated', auth);
+                  console.log('access_token', this.oidcSecurityService.getToken());
+                  this.isUserAvailable = auth;
+                }
+                );
   }
   homePreview: HomePreview[] = [
     {
@@ -37,12 +42,7 @@ isUserAvailable = false;
   options: string[] = ['北京', '天津', '上海'];
 
   ngOnInit(): void {
-    this.oidcSecurityService.checkAuth().subscribe((auth) => {
-      console.log('is authenticated', auth);
-      console.log('access_token', this.oidcSecurityService.getToken())
-      this.isUserAvailable = auth;
-    }
-    );
+
   }
 
   // signinRedirect() {
