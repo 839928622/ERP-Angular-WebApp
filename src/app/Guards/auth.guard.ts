@@ -4,7 +4,6 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { CanAccessRoles } from '../models/canAccessRoles';
-import { OidcFacade } from 'ng-oidc-client';
 import { take, switchMap } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { UserProfile } from '../models/userIdentity';

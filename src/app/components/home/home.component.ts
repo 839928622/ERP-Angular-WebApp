@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { HomePreview } from 'src/app/models/homePreview';
-import { OidcFacade } from 'ng-oidc-client';
 import { of } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 

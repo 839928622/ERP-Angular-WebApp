@@ -8,19 +8,22 @@ import {  Router } from '@angular/router';
   styleUrls: ['./signin-oidc.component.css']
 })
 export class SigninOidcComponent implements OnInit {
-
+  countDown = 50000;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    // this.authService.userLoaded$.subscribe(userLoaded => {
-    //   if (userLoaded)
-    //   {
-    //     this.router.navigate(['nav']);
-    //   }else {
-    //     console.log('错误的登录信息'); // 这里可以注入第三方消息组件库来更友好的提示用户登录失败
-    //   }
-    // });
-    // this.authService.handerCallBackAferSignIn();
+
+  }
+
+  minus() {
+       this.countDown -= 1;
+       console.log(this.countDown);
+       console.log('user auth yet ?', this.authService.IsAuthenticated);
+      // this.router.navigate(['nav']);
+  }
+
+  dont() {
+    this.countDown = this.countDown - 1;
   }
 
 }

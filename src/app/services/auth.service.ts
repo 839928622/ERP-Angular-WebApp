@@ -1,14 +1,11 @@
 import { UserProfile } from './../models/userIdentity';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { UserManager, User } from 'oidc-client';
 import { from, ReplaySubject, BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import * as Oidc from 'oidc-client';
 import { UserIdentity } from '../models/userIdentity';
 import { AlertifyService } from './alertify.service';
 import { ThrowStmt } from '@angular/compiler';
-import { OidcFacade } from 'ng-oidc-client';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 @Injectable({
   providedIn: 'root'

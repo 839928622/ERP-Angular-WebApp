@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { OidcFacade } from 'ng-oidc-client';
 import { switchMap } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 

@@ -33,8 +33,6 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './Guards/auth.guard';
 import { AuthorizationHeaderInterceptor } from './interceptor/authorization-header.interceptor';
 import { ErrorInterceptor } from './interceptor/error.interceptor';
-import { NgOidcClientModule } from 'ng-oidc-client';
-import { WebStorageStateStore, Log } from 'oidc-client';
 import { environment } from './../environments/environment';
 import { StoreModule, ActionReducerMap,  } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
