@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin-oidc',
@@ -8,22 +8,27 @@ import {  Router } from '@angular/router';
   styleUrls: ['./signin-oidc.component.css']
 })
 export class SigninOidcComponent implements OnInit {
-  countDown = 50000;
+  countDown = 2;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
 
+
+    const interval = setInterval(() => {
+
+      this.countDown = this.countDown - 1;
+      if (this.countDown <= 0) {
+        clearInterval(interval);
+        console.log(this.authService.IsAuthenticated);
+        this.router.navigate(['nav']);
+      }
+    }, 500);
+
   }
 
-  minus() {
-       this.countDown -= 1;
-       console.log(this.countDown);
-       console.log('user auth yet ?', this.authService.IsAuthenticated);
-      // this.router.navigate(['nav']);
-  }
 
-  dont() {
-    this.countDown = this.countDown - 1;
-  }
+
+
+
 
 }
