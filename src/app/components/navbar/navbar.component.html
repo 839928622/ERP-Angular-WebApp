@@ -18,7 +18,7 @@
           </mat-panel-description> -->
         </mat-expansion-panel-header>
       
-        <a mat-list-item  *ngFor="let subMenu of mainMenu.subMenuList" [routerLink]="['/Todo-List']">{{subMenu.name}}</a>
+        <a mat-list-item  *ngFor="let subMenu of mainMenu.subMenuList" [routerLink]="['Todo-List']">{{subMenu.name}}</a> <!--if start with '/' in a route link like '/Todo-List',it will route to host:port/Todo-list-->
      
       
       </mat-expansion-panel>

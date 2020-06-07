@@ -1,3 +1,4 @@
 
-<app-home *ngIf="!this.authService.IsAuthenticated"></app-home>
-<app-navbar *ngIf="this.authService.IsAuthenticated"></app-navbar>
+<!-- <app-home *ngIf="!this.authService.IsAuthenticated"></app-home>
+<app-navbar *ngIf="this.authService.IsAuthenticated"></app-navbar> -->
+<router-outlet></router-outlet>

@@ -19,7 +19,7 @@ export class SigninOidcComponent implements OnInit {
       this.countDown = this.countDown - 1;
       if (this.countDown <= 0) {
         clearInterval(interval);
-        console.log(this.authService.IsAuthenticated);
+        console.log('sign-in oidc,is Auth', this.authService.IsAuthenticated);
         this.router.navigate(['nav']);
       }
     }, 500);

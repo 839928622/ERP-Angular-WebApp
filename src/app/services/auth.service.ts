@@ -11,7 +11,8 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser = new Subject<UserProfile>();
+   currentUser: UserProfile ;
+
   IsAuthenticated: boolean;
   constructor(private router: Router, private alertifyService: AlertifyService, private oidcSecurityServices: OidcSecurityService) {
     // Oidc.Log.logger = console;
@@ -44,12 +45,12 @@ export class AuthService {
     //  console.log('用户刚刚登出');
     // });
     this.oidcSecurityServices.checkAuth().subscribe((auth) => {
-      console.log('is authenticated', auth);
-      console.log('access_token', this.oidcSecurityServices.getToken());
+      console.log('authService:is authenticated', auth);
+      console.log('authService:access_token', this.oidcSecurityServices.getToken());
       this.IsAuthenticated = auth;
       if (auth) {
         this.oidcSecurityServices.userData$.subscribe( user => {
-          this.currentUser.next(user); // 广播
+          this.currentUser = user;
         });
       }
     }

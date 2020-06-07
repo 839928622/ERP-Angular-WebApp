@@ -43,6 +43,7 @@ import { AuthModule, LogLevel, OidcConfigService } from 'angular-auth-oidc-clien
 import { APP_INITIALIZER } from '@angular/core';
 import { TabGroupService } from './services/tabgroup.service';
 import { TabGroupComponent } from './components/tabgroup/tabgroup.component';
+import { HomeCanActivateGuard } from './Guards/home-can-activate.guard';
 
 export interface State {
   router: RouterReducerState;
@@ -140,7 +141,6 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     TabGroupService,
     AuthService,
     AlertifyService,
-    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationHeaderInterceptor,
@@ -152,12 +152,14 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
       multi: true,
     },
     OidcConfigService,
-        {
+    {
             provide: APP_INITIALIZER,
             useFactory: configureAuth,
             deps: [OidcConfigService],
             multi: true,
-        },
+    },
+    AuthGuard,
+    HomeCanActivateGuard,
   ],
   bootstrap: [AppComponent]
 })

@@ -423,7 +423,7 @@ export class NavbarComponent {
   }
 
   signOut() {
-
+   this.authService.triggerSignout();
   }
 
 }

@@ -22,17 +22,19 @@ export class AuthGuard implements CanActivate {
               private oidcSecurityServices: OidcSecurityService,
               private tabService: TabGroupService,
               private alertifyService: AlertifyService) {
-    this.oidcSecurityServices.checkAuth().subscribe((auth) => {
-      console.log('is authenticated', auth);
-      console.log('access_token', this.oidcSecurityServices.getToken());
-      this.isAuth = auth;
-      if (auth) {
-        this.oidcSecurityServices.userData$.subscribe(user => {
-          this.user = user;
-        });
-      }
-    }
-    );
+    // this.oidcSecurityServices.checkAuth().subscribe((auth) => {
+    //   console.log('is authenticated', auth);
+    //   console.log('access_token', this.oidcSecurityServices.getToken());
+    //   this.isAuth = auth;
+    //   if (auth) {
+    //     this.oidcSecurityServices.userData$.subscribe(user => {
+    //       this.user = user;
+    //     });
+    //   }
+    // }
+    // );
+    this.user = this.authService.currentUser;
+    this.isAuth = this.authService.IsAuthenticated;
     this.tabService.tabListObservable$.subscribe(tabList => {
       this.tabList = tabList;
     });
