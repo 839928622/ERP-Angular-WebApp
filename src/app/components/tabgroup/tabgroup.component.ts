@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { TabGroupService } from './../../services/tabgroup.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tab } from 'src/app/models/tab';
@@ -11,7 +12,9 @@ import { Subscription } from 'rxjs';
 export class TabGroupComponent implements OnInit, OnDestroy {
 tabList: Tab[];
  tabListSub: Subscription;
-  constructor(private tabService: TabGroupService) { }
+  constructor(private tabService: TabGroupService,
+              private router: Router,
+              private activatedroute: ActivatedRoute) { }
   ngOnDestroy(): void {
     this.tabListSub.unsubscribe();
   }
@@ -22,7 +25,12 @@ tabList: Tab[];
   }
 
  closeTabByTabId(tabId: number) {
-   this.tabList.slice(tabId, 1);
+   this.tabList.splice(tabId, 1);
+   if (this.tabList.length === 0) {
+     console.log('current activated route.children', this.activatedroute.children);
+     console.log('current activated route url', this.activatedroute.url);
+     this.router.navigate(['nav']);
+   }
    this.tabService.updateTabList(this.tabList);
  }
 }

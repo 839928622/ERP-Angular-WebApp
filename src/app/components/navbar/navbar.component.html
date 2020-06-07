@@ -8,6 +8,7 @@
     </mat-toolbar>
     
     <mat-nav-list>
+
       <mat-expansion-panel *ngFor="let mainMenu of NavMenulist" [expanded]="mainMenu.isOpened">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -18,15 +19,9 @@
           </mat-panel-description> -->
         </mat-expansion-panel-header>
       
-        <a mat-list-item  *ngFor="let subMenu of mainMenu.subMenuList" [routerLink]="['Todo-List']">{{subMenu.name}}</a> <!--if start with '/' in a route link like '/Todo-List',it will route to host:port/Todo-list-->
-     
-      
+        <a mat-list-item  *ngFor="let subMenu of mainMenu.subMenuList" [routerLink]="[subMenu.route]">{{subMenu.name}}</a> <!--if start with '/' in a route link like '/Todo-List',it will route to host:port/Todo-list-->
       </mat-expansion-panel>
-   
-     
 
-
-      
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -50,9 +45,10 @@
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="route-outlet-container">
-      <!-- 添加路由输出口 -->
+    
       <app-tabgroup></app-tabgroup>
       <router-outlet></router-outlet>
     </div>
+    <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

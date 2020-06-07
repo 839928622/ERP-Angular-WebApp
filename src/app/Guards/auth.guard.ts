@@ -41,6 +41,7 @@ export class AuthGuard implements CanActivate {
   }
   verifyTab(tab: Tab) {
     if (this.tabList === undefined) { // first tab
+      tab.active = true; // first tab it's active property must be true
       this.tabList = [tab];
     }
      else {

@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {
@@ -40,33 +40,42 @@ const routes: Routes = [
                   baseRole: ['Erp'], secondaryRoles: []
                 },
           Tab: {
-                  title: '待办',
-                  routePath: 'Todo-List'
+                  title: '销售开单',
+                  routePath: 'Todo-List',
                },
               }
       },
       {
-      path: '',
-      redirectTo: 'nav',
-      pathMatch: 'full',
-      }
+        path: 'newOrder',
+        canActivate: [AuthGuard],
+        component: TodoTableComponent,
+       // outlet: 'authorizedRouterOutlet',
+        data: {
+          CanAccessRoles:
+                {
+                  baseRole: ['Erp'], secondaryRoles: []
+                },
+          Tab: {
+                  title: '销售开单',
+                  routePath: 'newOrder',
+               },
+              }
+      },
     ]
 
   },
   {
     path: 'signin-oidc',
     component: SigninOidcComponent,
-   // outlet: 'unauthorizedRouterOutlet'
   },
   {
     path: 'redirect-silentrenew',
     component: RedirectSilentRenewComponent,
-   // outlet: 'unauthorizedRouterOutlet'
   }
   ,
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '/home',
   },
 ];
 

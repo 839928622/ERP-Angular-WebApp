@@ -12,7 +12,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 })
 export class NavbarComponent {
     NavMenulist: NavMenu[];
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
@@ -27,7 +27,7 @@ export class NavbarComponent {
         },
         {
           name: '网络订单',
-          route: ''
+          route: 'newOrder'
         },
         {
           name: '门店开单',

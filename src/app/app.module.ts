@@ -44,6 +44,7 @@ import { APP_INITIALIZER } from '@angular/core';
 import { TabGroupService } from './services/tabgroup.service';
 import { TabGroupComponent } from './components/tabgroup/tabgroup.component';
 import { HomeCanActivateGuard } from './Guards/home-can-activate.guard';
+import { NewOrderComponent } from './components/navbar/new-order/new-order.component';
 
 export interface State {
   router: RouterReducerState;
@@ -76,7 +77,8 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     SigninOidcComponent,
     RedirectSilentRenewComponent,
     HomeComponent,
-    TabGroupComponent
+    TabGroupComponent,
+    NewOrderComponent
   ],
   imports: [
     BrowserModule,
