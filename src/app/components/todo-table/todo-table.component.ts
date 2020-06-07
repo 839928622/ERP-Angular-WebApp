@@ -30,9 +30,9 @@ export class TodoTableComponent implements AfterViewInit, OnInit {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     // this.table.dataSource = this.dataSource;
-     this.todoService.getAllToDo().subscribe(todo => {
-      this.toDoList = todo;
-      console.log(this.toDoList);
-    });
+    //  this.todoService.getAllToDo().subscribe(todo => {
+    //   this.toDoList = todo;
+    //   console.log(this.toDoList);
+    // });
   }
 }

@@ -5,9 +5,10 @@
        routerLinkActive #rla="routerLinkActive"
        [active]="rla.isActive">
       {{link.title}}
+      <span class="material-icons" (click)="$event.stopPropagation()" onclick="closeTab(tabIndex)">
+        clear
+      </span>
     </a>
-    <span class="material-icons" onclick="closeTab(tabIndex)">
-      clear
-    </span>
+    
   </nav>
   

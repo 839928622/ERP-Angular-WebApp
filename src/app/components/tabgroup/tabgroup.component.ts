@@ -17,9 +17,12 @@ tabList: Tab[];
   }
 
   ngOnInit(): void {
-    this.tabListSub = this.tabService.tabListObservable.subscribe( list => this.tabList = list );
+    this.tabListSub = this.tabService.tabListObservable$.subscribe( list => this.tabList = list );
     console.log(this.tabList);
   }
 
-
+ closeTabByTabId(tabId: number) {
+   this.tabList.slice(tabId, 1);
+   this.tabService.updateTabList(this.tabList);
+ }
 }

@@ -12,33 +12,46 @@ import { AuthGuard } from './Guards/auth.guard';
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    // outlet: 'unauthorizedRouterOutlet'
   },
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'Todo-List',
     canActivate: [AuthGuard],
     component: TodoTableComponent,
-    data: {tab: {title: '待办', routePath: 'Todo-List'
-     }}
+   // outlet: 'authorizedRouterOutlet',
+    data: {
+      CanAccessRoles:
+            {
+              baseRole: ['Erp'], secondaryRoles: []
+            },
+      Tab: {
+              title: '待办',
+              routePath: '/Todo-List'
+           },
+          }
   },
   {
     path: 'nav',
     canActivate: [AuthGuard],
     component: NavbarComponent,
+   // outlet: 'unauthorizedRouterOutlet',
     data: { CanAccessRoles: { baseRole: ['Erp'], secondaryRoles: [] }}
   },
   {
     path: 'signin-oidc',
-    component: SigninOidcComponent
+    component: SigninOidcComponent,
+   // outlet: 'unauthorizedRouterOutlet'
   },
   {
     path: 'redirect-silentrenew',
-    component: RedirectSilentRenewComponent
+    component: RedirectSilentRenewComponent,
+   // outlet: 'unauthorizedRouterOutlet'
   }
   ,
   {
