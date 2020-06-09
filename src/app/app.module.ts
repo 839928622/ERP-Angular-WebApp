@@ -42,7 +42,6 @@ import { AlertifyService } from './services/alertify.service';
 import { AuthModule, LogLevel, OidcConfigService } from 'angular-auth-oidc-client';
 import { APP_INITIALIZER } from '@angular/core';
 import { TabGroupService } from './services/tabgroup.service';
-import { TabGroupComponent } from './components/tabgroup/tabgroup.component';
 import { HomeCanActivateGuard } from './Guards/home-can-activate.guard';
 import { NewOrderComponent } from './components/navbar/new-order/new-order.component';
 
@@ -77,7 +76,6 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     SigninOidcComponent,
     RedirectSilentRenewComponent,
     HomeComponent,
-    TabGroupComponent,
     NewOrderComponent
   ],
   imports: [

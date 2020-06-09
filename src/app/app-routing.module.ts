@@ -56,7 +56,7 @@ const routes: Routes = [
                   baseRole: ['Erp'], secondaryRoles: []
                 },
           Tab: {
-                  title: '销售开单',
+                  title: '网络订单',
                   routePath: 'newOrder',
                },
               }

@@ -39,18 +39,6 @@ export class AuthGuard implements CanActivate {
       this.tabList = tabList;
     });
   }
-  verifyTab(tab: Tab) {
-    if (this.tabList === undefined) { // first tab
-      tab.active = true; // first tab it's active property must be true
-      this.tabList = [tab];
-    }
-     else {
-      const lastAtiveTabIndex = this.tabList.findIndex(x => x.active === true);
-      this.tabList[lastAtiveTabIndex].active = false;
-      this.tabList.push(tab);
-    }
-    this.tabService.updateTabList(this.tabList);
-  }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -68,7 +56,6 @@ export class AuthGuard implements CanActivate {
       const tabInfo: Tab = next.data.Tab; // get tab basic info from router
       if (canAccessRoles.baseRole.length === 0 && canAccessRoles.secondaryRoles.length === 0) {
         if ( tabInfo !== undefined) {
-          this.verifyTab(tabInfo);
         }
         return true;
       }
@@ -77,7 +64,6 @@ export class AuthGuard implements CanActivate {
           return false;
         }
         if ( tabInfo !== undefined) {
-          this.verifyTab(tabInfo);
         }
         return true;
       } else if (canAccessRoles.baseRole.length > 0 && canAccessRoles.secondaryRoles.length > 0) {
@@ -88,7 +74,6 @@ export class AuthGuard implements CanActivate {
           element => {
             if (this.user.role.includes(element)) {
               if ( tabInfo !== undefined) {
-                this.verifyTab(tabInfo);
               }
 
               return true;
@@ -103,7 +88,6 @@ export class AuthGuard implements CanActivate {
           element => {
             if (this.user.role.includes(element)) {
               if ( tabInfo !== undefined) {
-                this.verifyTab(tabInfo);
               }
               return true;
             } else {
