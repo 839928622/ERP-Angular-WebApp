@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { environment } from './../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { SignalRService } from './services/signal-r.service';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -6,9 +9,23 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ERP-Angular-WebApp';
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService,
+              private signalRService: SignalRService,
+              private httpClient: HttpClient) {
 
+  }
+  ngOnInit(): void {
+    this.signalRService.startConnection();
+    this.signalRService.ActivateBranchSettingsDataListener();
+    this.startHttpRequest();
+  }
+
+  startHttpRequest() {
+    this.httpClient.get(environment.erpApiBase + '/branchSettings')
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 }
