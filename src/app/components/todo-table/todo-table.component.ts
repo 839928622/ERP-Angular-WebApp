@@ -12,10 +12,10 @@ import { Todo } from 'src/app/models/todo';
   styleUrls: ['./todo-table.component.css']
 })
 export class TodoTableComponent implements AfterViewInit, OnInit {
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<TodoTableItem>;
-  // dataSource: TodoTableDataSource;
+  dataSource: TodoTableDataSource;
  toDoList: Todo[];
  constructor(private todoService: TodoService) {
  }
@@ -23,16 +23,16 @@ export class TodoTableComponent implements AfterViewInit, OnInit {
   displayedColumns = ['id', 'name'];
 
   ngOnInit() {
-    // this.dataSource = new TodoTableDataSource();
+    this.dataSource = new TodoTableDataSource();
   }
 
   ngAfterViewInit() {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     // this.table.dataSource = this.dataSource;
-    //  this.todoService.getAllToDo().subscribe(todo => {
-    //   this.toDoList = todo;
-    //   console.log(this.toDoList);
-    // });
+    this.todoService.getAllToDo().subscribe(todo => {
+      this.toDoList = todo;
+      console.log(this.toDoList);
+    });
   }
 }

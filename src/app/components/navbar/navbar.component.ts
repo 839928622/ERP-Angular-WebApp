@@ -1,16 +1,19 @@
 import { AuthService } from './../../services/auth.service';
 import { NavMenu } from './../../models/NavMenu';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { SignalRService } from 'src/app/services/signal-r.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
     NavMenulist: NavMenu[];
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,8 +21,11 @@ export class NavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {
-    this.NavMenulist = [
+  constructor(private breakpointObserver: BreakpointObserver,
+              public authService: AuthService,
+              private signalRService: SignalRService,
+              private httpClient: HttpClient) {
+       this.NavMenulist = [
       { name: '订单管理', isOpened: true, subMenuList : [
         {
           name: '销售开单',
@@ -421,9 +427,21 @@ export class NavbarComponent {
       },
     ];
   }
+  ngOnInit(): void {
+    this.signalRService.startConnection();
+    this.signalRService.ActivateBranchSettingsDataListener();
+    this.startHttpRequest();
+  }
 
   signOut() {
    this.authService.triggerSignout();
+  }
+
+  startHttpRequest() {
+    this.httpClient.get(environment.erpApiBase + '/api/AdvancedSetting')
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

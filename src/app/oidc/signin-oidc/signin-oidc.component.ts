@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signin-oidc.component.css']
 })
 export class SigninOidcComponent implements OnInit {
-  countDown = 2;
+  countDown = 5;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
