@@ -10,7 +10,10 @@ public data: BranchSettings;
 private hubConnection: signalR.HubConnection;
 public startConnection = () => {
   this.hubConnection = new signalR.HubConnectionBuilder()
-                           .withUrl(environment.erpApiBase + '/AdvancedSetting').build();
+                           .withUrl(environment.erpApiBase + '/AdvancedSetting', {
+                            skipNegotiation: true,
+                            transport: signalR.HttpTransportType.WebSockets})
+                           .build();
 
   this.hubConnection
   .start()
@@ -19,7 +22,7 @@ public startConnection = () => {
 }
 
 public ActivateBranchSettingsDataListener = () => {
-  this.hubConnection.on('branchSettings', (data) => {
+  this.hubConnection.on('branchSettings', (data) => { // listening on branchSettings
     console.log('signal-r从服务端取得：', data);
   });
 }

@@ -17,15 +17,6 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.signalRService.startConnection();
-    this.signalRService.ActivateBranchSettingsDataListener();
-    this.startHttpRequest();
-  }
 
-  startHttpRequest() {
-    this.httpClient.get(environment.erpApiBase + '/branchSettings')
-    .subscribe(res => {
-      console.log(res);
-    });
   }
 }

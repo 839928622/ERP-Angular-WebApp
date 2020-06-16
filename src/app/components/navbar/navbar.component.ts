@@ -1,6 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { NavMenu } from './../../models/NavMenu';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
     NavMenulist: NavMenu[];
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -427,10 +427,13 @@ export class NavbarComponent implements OnInit {
       },
     ];
   }
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.signalRService.startConnection();
     this.signalRService.ActivateBranchSettingsDataListener();
     this.startHttpRequest();
+  }
+  ngOnInit(): void {
+
   }
 
   signOut() {
@@ -438,7 +441,7 @@ export class NavbarComponent implements OnInit {
   }
 
   startHttpRequest() {
-    this.httpClient.get(environment.erpApiBase + '/api/AdvancedSetting')
+    this.httpClient.get(environment.erpApiBase + '/AdvancedSetting/get?branchId=' + 1)
     .subscribe(res => {
       console.log(res);
     });
