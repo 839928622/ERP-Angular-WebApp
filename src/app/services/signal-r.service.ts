@@ -21,11 +21,13 @@ public startConnection = () => {
   .catch(error => console.log('signal-r连接错误！提示:' + error));
 }
 
-public ActivateBranchSettingsDataListener = () => {
-  this.hubConnection.on('branchSettings', (data) => { // listening on branchSettings
-    console.log('signal-r从服务端取得：', data);
-  });
-}
+
+
   constructor() { }
 
+  ActivateBranchSettingsDataListener(branchId: string) {
+    this.hubConnection.on('branchSettings', (data) => { // listening on branchSettings
+      console.log('signal-r从服务端取得：', data);
+    });
+  }
 }

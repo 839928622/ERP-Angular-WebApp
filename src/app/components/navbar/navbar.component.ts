@@ -429,7 +429,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.signalRService.startConnection();
-    this.signalRService.ActivateBranchSettingsDataListener();
+    this.signalRService.ActivateBranchSettingsDataListener(this.authService.currentUser.branchId);
     this.startHttpRequest();
   }
   ngOnInit(): void {
@@ -441,7 +441,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   startHttpRequest() {
-    this.httpClient.get(environment.erpApiBase + '/AdvancedSetting/get?branchId=' + 1)
+    this.httpClient.get(environment.erpApiBase + '/AdvancedSetting/get')
     .subscribe(res => {
       console.log(res);
     });
