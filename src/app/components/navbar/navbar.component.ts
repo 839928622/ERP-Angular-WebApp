@@ -430,6 +430,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.signalRService.startConnection();
     this.signalRService.ActivateBranchSettingsDataListener(this.authService.currentUser.branchId);
+    console.log(this.authService.currentUser.branchId);
     this.startHttpRequest();
   }
   ngOnInit(): void {

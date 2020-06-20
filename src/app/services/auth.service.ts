@@ -7,14 +7,19 @@ import { UserIdentity } from '../models/userIdentity';
 import { AlertifyService } from './alertify.service';
 import { ThrowStmt } from '@angular/compiler';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
    currentUser: UserProfile ;
+   jwtHelper = new JwtHelperService();
 
   IsAuthenticated: boolean;
-  constructor(private router: Router, private alertifyService: AlertifyService, private oidcSecurityServices: OidcSecurityService) {
+  constructor(private router: Router,
+              private alertifyService: AlertifyService,
+              private oidcSecurityServices: OidcSecurityService,
+              ) {
     // Oidc.Log.logger = console;
     // this.userManager.clearStaleState(); //  用户上次访问idp获取到的凭证（存储在浏览器本地），有可能过期了，清除一下
     // this.userManager.getUser().then(user => {
@@ -50,7 +55,10 @@ export class AuthService {
       this.IsAuthenticated = auth;
       if (auth) {
         this.oidcSecurityServices.userData$.subscribe( user => {
-          this.currentUser = user;
+
+          console.log('初次授权得到的用户', user);
+          this.currentUser = this.jwtHelper.decodeToken(this.oidcSecurityServices.getIdToken());
+          console.log('当前用户', this.currentUser);
         });
       }
     }

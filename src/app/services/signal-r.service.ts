@@ -26,7 +26,8 @@ public startConnection = () => {
   constructor() { }
 
   ActivateBranchSettingsDataListener(branchId: string) {
-    this.hubConnection.on('branchSettings', (data) => { // listening on branchSettings
+    console.log('branchId:' + branchId);
+    this.hubConnection.on('branchSettings-' + branchId, (data) => { // listening on branchSettings
       console.log('signal-r从服务端取得：', data);
     });
   }
