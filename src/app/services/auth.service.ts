@@ -54,12 +54,10 @@ export class AuthService {
       console.log('authService:access_token', this.oidcSecurityServices.getToken());
       this.IsAuthenticated = auth;
       if (auth) {
-        this.oidcSecurityServices.userData$.subscribe( user => {
 
-          console.log('初次授权得到的用户', user);
           this.currentUser = this.jwtHelper.decodeToken(this.oidcSecurityServices.getIdToken());
-          console.log('当前用户', this.currentUser);
-        });
+
+
       }
     }
     );
