@@ -7,6 +7,7 @@ import { TodoTableComponent } from './components/todo-table/todo-table.component
 import { RedirectSilentRenewComponent } from './oidc/redirect-silent-renew/redirect-silent-renew.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './Guards/auth.guard';
+import { NewOrderComponent } from './components/navbar/new-order/new-order.component';
 
 
 
@@ -48,7 +49,7 @@ const routes: Routes = [
       {
         path: 'newOrder',
         canActivate: [AuthGuard],
-        component: TodoTableComponent,
+        component: NewOrderComponent,
        // outlet: 'authorizedRouterOutlet',
         data: {
           CanAccessRoles:
