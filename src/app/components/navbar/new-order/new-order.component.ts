@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { Company } from 'src/app/models/company';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
@@ -12,8 +14,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 export class NewOrderComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  companyList: Company[];
   animals: ['adfafa', 'dfdasfasfs'];
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this.formBuilder.group({
@@ -23,6 +27,12 @@ export class NewOrderComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+
+    this.route.data.subscribe(
+      data => {
+       this.companyList = data.companyList;
+      }
+    );
   }
   }
 

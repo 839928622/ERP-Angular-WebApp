@@ -1,3 +1,4 @@
+import { CompanyListResolver } from './resolvers/companyListResolver';
 import { HomeCanActivateGuard } from './Guards/home-can-activate.guard';
 import { SigninOidcComponent } from './oidc/signin-oidc/signin-oidc.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -50,6 +51,7 @@ const routes: Routes = [
         path: 'newOrder',
        // canActivate: [AuthGuard],
         component: NewOrderComponent,
+        resolve: {companyList: CompanyListResolver},
        // outlet: 'authorizedRouterOutlet',
         data: {
           CanAccessRoles:
