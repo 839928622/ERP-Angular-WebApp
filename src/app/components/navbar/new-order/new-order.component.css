@@ -1,0 +1,11 @@
+.mat-form-field {
+    flex-basis: 30%;
+}
+
+.fullWidth {
+    flex-basis: 100%;
+}
+
+.halfWidth {
+    flex-basis: 50%;
+}

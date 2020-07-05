@@ -1,8 +1,8 @@
 <mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayout.xs="column" fxFlexFill>
         <ng-template matStepLabel>基本信息</ng-template>
-        <mat-form-field>
+        <mat-form-field class="mat-form-field">
           <mat-label>Favorite animal</mat-label>
           <mat-select formControlName="animalContrl" >
             <mat-option>--</mat-option>
@@ -11,47 +11,49 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="mat-form-field">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="mat-form-field">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="mat-form-field">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="mat-form-field">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
         </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
+       
+          <button mat-button matStepperNext class="fullWidth">下一步</button>
+       
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
+      <form [formGroup]="secondFormGroup" flexLayout="row wrap" fxLayoutAlign="space-around center" fxLayout.xs="column" fxFlexFill>
         <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
+        <mat-form-field class="fullWidth">
           <mat-label>Address</mat-label>
           <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
                  required>
         </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
+        
+          <button mat-button matStepperPrevious class="halfWidth">Back</button>
+          <button mat-button matStepperNext class="halfWidth">Next</button>
+       
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
       <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+      <div flexLayout="row wrap" fxLayoutAlign="space-around center" fxLayout.xs="column" fxFlexFill>
+
+        <button mat-button matStepperPrevious class="halfWidth">Back</button>
+        <button mat-button (click)="stepper.reset()" class="halfWidth">Reset</button>
       </div>
+     
     </mat-step>
   </mat-horizontal-stepper>

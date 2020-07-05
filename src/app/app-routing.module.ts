@@ -25,14 +25,14 @@ const routes: Routes = [
   },
   {
     path: 'nav',
-    canActivate: [AuthGuard],
+   // canActivate: [AuthGuard],
     component: NavbarComponent,
    // outlet: 'unauthorizedRouterOutlet',
     data: { CanAccessRoles: { baseRole: ['Erp'], secondaryRoles: [] }},
     children: [
       {
         path: 'Todo-List',
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         component: TodoTableComponent,
        // outlet: 'authorizedRouterOutlet',
         data: {
@@ -48,7 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'newOrder',
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         component: NewOrderComponent,
        // outlet: 'authorizedRouterOutlet',
         data: {
