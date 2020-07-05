@@ -1,3 +1,4 @@
+import { CompanyListResolver } from './resolvers/companyListResolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -163,6 +164,9 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     },
     AuthGuard,
     HomeCanActivateGuard,
+
+    // resolvers
+    CompanyListResolver,
   ],
   bootstrap: [AppComponent]
 })
