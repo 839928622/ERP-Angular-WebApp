@@ -10,7 +10,7 @@
          </button>
     </mat-toolbar>
 
-    <div fxLayout="row wrap">
+    <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayout.xs="column">
         <div *ngFor="let item of homePreview;let i = index" 
         fxFlex="0 0 100%" 
         [ngStyle.gt-sm] ="{'margin.px':6}" 
