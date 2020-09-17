@@ -1,5 +1,5 @@
 ### STAGE 1: Build ###
-FROM node:13.3.0 AS compile-image
+FROM node:lts-alpine3.9 AS compile-image
 
 WORKDIR /opt/ng
 COPY package.json package-lock.json ./
