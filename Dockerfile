@@ -11,5 +11,5 @@ ENV PATH="./node_modules/.bin:$PATH"
 RUN ng build --prod
 ### STAGE 2: Run ###
 FROM nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=compile-image /opt/ng/dist/erp-angular-web-app /usr/share/nginx/html
