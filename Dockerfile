@@ -13,4 +13,4 @@ RUN ng build --prod
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=compile-image /opt/ng/dist/erp-angular-web-app /usr/share/nginx/html
+COPY --from=compile-image /opt/ng/dist/ERP-Angular-WebApp /usr/share/nginx/html
