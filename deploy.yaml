@@ -14,10 +14,11 @@ spec:
     spec:
       containers:
       - name: webapp
-        env:
-        - name: SPRING_PROFILES_ACTIVE
-          value: production-microservice
-        image: ${REPOSITORY_TAG}
+        # env:
+        # - name: SPRING_PROFILES_ACTIVE
+        #   value: production-microservice
+        image: erp-angular-webapp
+        # pull image from remote server ? 
         imagePullPolicy: Never
         readinessProbe:
           httpGet:
