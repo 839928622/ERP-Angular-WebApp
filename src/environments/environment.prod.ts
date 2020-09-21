@@ -1,6 +1,6 @@
-export const idpBase = 'http://localhost:6556'; // 授权服务端点
+export const idpBase = 'http://www.erp.com/idp'; // 授权服务端点
 export const erpApiBase = 'http://localhost:5000'; // ERP的API
-export const angularErpBase = 'http://localhost:4200'; // 本spa的地址
+export const angularErpBase = 'http://www.erp.com'; // 本spa的地址
 
 export const environment = {
   production: true,
