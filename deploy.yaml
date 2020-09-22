@@ -34,12 +34,14 @@ spec:
   # This defines which pods are going to be represented by this Service
   # The service becomes a network endpoint for either other services
   # or maybe external users to connect to (eg browser)
+  # minikube start --extra-config=apiserver.service-node-port-range=80-30000, 
+  # port 80 can be used as well
   selector:
     app: webapp
 
   ports:
     - name: http
       port: 80
-      nodePort: 30080
+      nodePort: 80
 
   type: NodePort
