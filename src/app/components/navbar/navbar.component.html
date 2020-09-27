@@ -40,6 +40,10 @@
       <!-- matMenuTriggerFor是指向一个叫menu的组件，就是下方的#menu -->
       <button mat-button [matMenuTriggerFor]="menu"> <mat-icon>more_vert</mat-icon></button> 
       <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="this.authService.IsAuthenticated" (click)="signOut()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>登出</span>
+        </button>
         <mat-list-item *ngIf="this.authService.IsAuthenticated" (click)="signOut()">登出</mat-list-item>
       </mat-menu>
     </mat-toolbar>
